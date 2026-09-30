@@ -19,10 +19,10 @@ export default function Navbar() {
 
   return (
     <header className="absolute top-0 w-full z-50">
-      <div className="mx-auto flex w-11/12 max-w-360 items-center justify-between px-6 py-6 lg:px-8">
-        <NavLink to="/" className="flex items-center gap-3">
-          <img src={logoIcon} alt="" className="h-10 object-contain" />
-          <span className="text-lg sm:text-xl font-serif tracking-wide whitespace-nowrap">
+      <div className="mx-auto flex w-11/12 max-w-360 items-center justify-between px-2 py-5 sm:px-6 sm:py-6 lg:px-8">
+        <NavLink to="/" className="flex items-center gap-2 sm:gap-3">
+          <img src={logoIcon} alt="" className="h-8 sm:h-10 object-contain" />
+          <span className="text-base sm:text-xl font-serif tracking-wide whitespace-nowrap">
             <span className="text-gold">Wonder Tales</span> <span className="text-white">Hub</span>
           </span>
         </NavLink>
@@ -39,10 +39,10 @@ export default function Navbar() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3 sm:gap-4">
           <a
             href={GET_THE_APP_HREF}
-            className="whitespace-nowrap rounded-full bg-linear-to-b from-[#E89C30] to-[#FFDBA7] px-4 py-2 sm:px-6 sm:py-2.5 text-[12px] sm:text-[13px] font-semibold text-navy-950 shadow-[0_0_18px_rgba(232,160,32,0.35)] transition hover:opacity-90"
+            className="whitespace-nowrap rounded-full bg-linear-to-b from-[#E89C30] to-[#FFDBA7] px-3 py-1.5 sm:px-6 sm:py-2.5 text-[12px] sm:text-[13px] font-semibold text-navy-950 shadow-[0_0_18px_rgba(232,160,32,0.35)] transition hover:opacity-90"
           >
             {CTA_LABEL}
           </a>
