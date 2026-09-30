@@ -23,7 +23,7 @@ const ROLE_CARDS = [
 
 export default function VoiceClone() {
   return (
-    <section id="voice" className="relative overflow-hidden py-16 lg:py-24 bg-linear-to-br from-navy-950/90 via-navy-700/80 to-navy-900/90">
+    <section id="voice" className="relative overflow-hidden py-16 lg:py-24">
 
       <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[500px] h-[500px] bg-navy-900/40 rounded-full blur-[120px] pointer-events-none" />
 
