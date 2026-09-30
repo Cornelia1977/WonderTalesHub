@@ -30,9 +30,9 @@ export default function HowItWorks() {
 
           <div className="grid gap-8 sm:grid-cols-3 pb-12 md:pb-0 mt-8">
             {[
-              { icon: icon1, title: 'Create Your Child', desc: 'Create or select profile to personalize their story.' },
-              { icon: icon2, title: 'Create Story', desc: 'Choose a theme, length and voice to generate a story.' },
-              { icon: icon3, title: 'Listen and Enjoy', desc: 'Sit back, relax and enjoy a magical story anytime anywhere.' },
+              { icon: icon1, title: 'Add your child', desc: 'Their name and age, so every story is written for them.' },
+              { icon: icon2, title: 'Choose the story', desc: 'A theme, a narrator or family voice, a length and a language.' },
+              { icon: icon3, title: 'Listen together', desc: 'The words light up as they are read. Replay it, or continue with Next Chapter.' },
             ].map((s, index) => (
               <ScrollReveal key={s.title} delay={index * 150} scale>
                 <div className="relative rounded-2xl border border-white/10 bg-linear-to-b from-[#E89C30]/20 to-[#FFDBA8]/20 pt-12 pb-6 px-6 text-left hover:border-gold/40 hover:shadow-xl hover:shadow-gold/5 transition-all duration-300 h-full">

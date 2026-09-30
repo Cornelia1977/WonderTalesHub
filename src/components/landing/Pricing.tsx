@@ -40,14 +40,14 @@ const PLANS = [
     bg: 'bg-[#1E67D6]',
     glow: 'shadow-[0_0_50px_rgba(30,103,214,0.55)]',
     borderClass: 'border-gold/60',
-    ctaClass: 'bg-gold text-navy-950 hover:opacity-90',
+    ctaClass: 'bg-linear-to-b from-[#E89C30] to-[#FFDBA7] text-navy-950 shadow-[0_0_18px_rgba(232,160,32,0.35)] hover:opacity-90',
     ctaGold: true,
   },
   {
     name: 'Every Night',
     prices: { USD: '24.99', EUR: '27.99', GBP: '21.99' },
     storySummary: '30 stories / month',
-    badge: 'BACKED BY SCIENCE',
+    badge: 'BEST VALUE',
     special: 'Next Chapter — Continue any story',
     features: [
       '26 AI stories + 4 family voice stories = 30 total',
@@ -188,7 +188,7 @@ export default function Pricing() {
 
                 <a
                   href="/#download"
-                  className={`mt-8 block w-full rounded-lg py-2.5 text-center text-sm font-semibold transition-all ${p.ctaClass}`}
+                  className={`mt-8 block w-full rounded-full py-2.5 text-center text-sm font-semibold transition-all ${p.ctaClass}`}
                 >
                   Get Started
                 </a>

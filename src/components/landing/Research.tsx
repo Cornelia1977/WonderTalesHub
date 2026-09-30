@@ -12,7 +12,7 @@ export default function Research() {
             THE RESEARCH <span className="text-gold">IS CLEAR</span>
           </h2>
           <p className="mx-auto mt-6 max-w-xl text-base text-white/70 font-normal leading-relaxed">
-            Wonder Tales Hub doesn’t just entertain — it builds habits and skills that science has proven matter.
+            A story every night builds habits that science says matter.
           </p>
         </ScrollReveal>
 
@@ -21,21 +21,21 @@ export default function Research() {
             {
               stat: "+1HR",
               subtitle: "More sleep every night",
-              desc: "A landmark study of 10,085 families across 14 countries found children with a consistent nightly bedtime routine sleep over an hour more per night.",
+              desc: "Children with a consistent bedtime routine sleep over an hour more a night, across 10,085 families in 14 countries.",
               ref: "Mindell et al. — Sleep, 2015,",
               link: "https://pmc.ncbi.nlm.nih.gov/articles/PMC4402657/",
             },
             {
               stat: "1.4M",
               subtitle: "More words heard by age 5",
-              desc: "Ohio State University researchers found children read to daily hear up to 1.4 million more words by kindergarten than children not read to.",
+              desc: "Children read to every day hear up to 1.4 million more words by kindergarten.",
               ref: "Logan JA et al. — Ohio State University, 2019.",
               link: "https://news.osu.edu/a-million-word-gap-for-children-who-arent-read-to-at-home/",
             },
             {
               stat: "3 IN 1",
               subtitle: "Sleep + Literacy + Bonding",
-              desc: "A review in Sleep Medicine Reviews found bedtime routines benefit not just sleep, but child literacy outcomes, emotional regulation, and parent-child bonding.",
+              desc: "Bedtime routines help sleep, early reading, emotional balance and the bond between parent and child.",
               ref: "Mindell & Williamson — Sleep Medicine Reviews, 2018.",
               link: "https://pubmed.ncbi.nlm.nih.gov/29195725/",
             },
@@ -56,7 +56,7 @@ export default function Research() {
                 </p>
 
                 {/* Description */}
-                <p className="mt-6 text-sm text-white/50 font-normal leading-relaxed grow">
+                <p className="mt-6 text-sm text-white/70 font-normal leading-relaxed grow">
                   {c.desc}
                 </p>
 
@@ -83,9 +83,9 @@ export default function Research() {
             </ScrollReveal>
           ))}
         </div>
-        <div className="rounded-lg mt-8 leading-[155%] lg:mt-12 text-xs border-2 border-[#FFFFFF33] backdrop-blur-[2px] bg-[#ffffff0c] p-2 lg:p-3 shadow-2xl overflow-hidden">
-          Wonder Tales Hub is designed to help families build the consistent nightly bedtime routine these studies describe. Individual results vary. Wonder Tales Hub is not a medical device and makes no clinical claims.
-        </div>
+        <p className="mt-8 text-xs text-white/50 leading-relaxed">
+          These studies are about bedtime routines in general. Individual results vary; Wonder Tales Hub is not a medical device.
+        </p>
       </div>
     </section>
   );

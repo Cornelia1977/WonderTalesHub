@@ -1,6 +1,8 @@
 import HeroSection from '../components/landing/HeroSection'
 import HowItWorks from '../components/landing/HowItWorks'
-import VoiceClone from '../components/landing/VoiceClone'
+import FamilyVoices from '../components/landing/FamilyVoices'
+import StoryWorlds from '../components/landing/StoryWorlds'
+import FAQ from '../components/landing/FAQ'
 import Research from '../components/landing/Research'
 import Testimonials from '../components/landing/Testimonials'
 import Pricing from '../components/landing/Pricing'
@@ -13,10 +15,12 @@ export default function LandingPage() {
       <StarrySky />
       <HeroSection />
       <HowItWorks />
-      <VoiceClone />
+      <FamilyVoices />
+      <StoryWorlds />
       <Research />
       <Testimonials />
       <Pricing />
+      <FAQ />
       <CTA />
     </div>
   )
