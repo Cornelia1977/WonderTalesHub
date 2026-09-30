@@ -5,10 +5,12 @@ import Research from '../components/landing/Research'
 import Testimonials from '../components/landing/Testimonials'
 import Pricing from '../components/landing/Pricing'
 import CTA from '../components/landing/CTA'
+import StarrySky from '../components/landing/StarrySky'
 
 export default function LandingPage() {
   return (
-    <div className="bg-linear-to-br from-navy-950/90 via-navy-700/80 to-navy-900/90">
+    <div className="relative isolate bg-linear-to-br from-navy-950/90 via-navy-700/80 to-navy-900/90">
+      <StarrySky />
       <HeroSection />
       <HowItWorks />
       <VoiceClone />

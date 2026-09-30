@@ -41,7 +41,7 @@ export default function Research() {
             },
           ].map((c, index) => (
             <ScrollReveal key={c.stat} delay={index * 150} scale>
-              <div className="flex flex-col h-full rounded-xl border-t-[5px] border-t-[#C8913A] bg-linear-to-b from-navy-900/50 to-navy-900/50 p-8 text-center transition-all duration-300 hover:shadow-lg hover:shadow-[#C8913A]/10">
+              <div className="flex flex-col h-full rounded-xl border-t-[5px] border-t-[#C8913A] bg-linear-to-b from-navy-900/90 to-navy-900/80 p-8 text-center transition-all duration-300 hover:shadow-lg hover:shadow-[#C8913A]/10">
                 {/* Stat */}
                 <p
                   className="text-5xl font-bold text-[#C8913A] tracking-wide"

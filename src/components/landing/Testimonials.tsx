@@ -29,7 +29,7 @@ const USE_CASES = [
 
 export default function Testimonials() {
   return (
-    <section className="px-6 py-24 lg:px-8 bg-navy-950">
+    <section className="px-6 py-24 lg:px-8">
       <div className="mx-auto max-w-360 w-11/12 text-center">
         <ScrollReveal direction="up">
           <p className="text-xs font-semibold text-gold tracking-widest uppercase">Designed For Families Like Yours</p>
