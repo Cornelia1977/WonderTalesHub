@@ -23,7 +23,7 @@ const USE_CASES = [
     emoji: '🧠',
     heading: 'The Child Who Reads Earlier',
     scenario:
-      'Imagine a kindergartner reading at a first-grade level because words are highlighted as they\'re spoken every night. Consistent bedtime stories are one of the strongest predictors of early literacy.',
+      'Imagine a child following every word as it lights up while the story is read aloud, night after night. Consistent bedtime stories are one of the strongest predictors of early literacy.',
   },
 ]
 

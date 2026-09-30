@@ -17,7 +17,7 @@ const COUNTRY_TO_CURRENCY: Record<string, Currency> = {
 
 // Extract country from navigator.language (e.g. "en-GB" → "GB")
 function getCountryFromLocale(): string | null {
-    const lang = navigator.language || (navigator as any).userLanguage || 'en-US'
+    const lang = navigator.language || (navigator as Navigator & { userLanguage?: string }).userLanguage || 'en-US'
     const parts = lang.split('-')
     if (parts.length === 2 && parts[1].length === 2) {
         return parts[1].toUpperCase()
@@ -32,30 +32,20 @@ function detectFromLocale(): Currency | null {
     return COUNTRY_TO_CURRENCY[country] ?? null
 }
 
-// Async detection via IP geolocation (fallback)
-async function detectFromIP(): Promise<Currency | null> {
-    try {
-        const res = await fetch('https://ipapi.co/json/')
-        if (!res.ok) return null
-        const data = await res.json()
-        const code = data?.country_code as string | undefined
-        if (!code) return null
-        return COUNTRY_TO_CURRENCY[code] ?? null
-    } catch {
-        return null
-    }
-}
-
 /**
  * Detects user currency with priority:
  * 1. localStorage (user's previous choice)
  * 2. Browser locale (instant)
- * 3. IP geolocation (async fallback)
- * 4. USD (default)
+ * 3. USD (default)
+ *
+ * There used to be an IP-geolocation step through a third-party service.
+ * It sent every visitor's address to that service for a currency symbol,
+ * on a site that promises parents their data stays with us; the locale is
+ * right often enough and the visitor can switch with one tap.
  */
 export async function detectUserCurrency(): Promise<{
     currency: Currency
-    source: 'storage' | 'locale' | 'ip' | 'default'
+    source: 'storage' | 'locale' | 'default'
 }> {
     // 1. Persisted choice
     if (typeof window !== 'undefined') {
@@ -69,11 +59,7 @@ export async function detectUserCurrency(): Promise<{
     const fromLocale = detectFromLocale()
     if (fromLocale) return { currency: fromLocale, source: 'locale' }
 
-    // 3. IP geolocation
-    const fromIP = await detectFromIP()
-    if (fromIP) return { currency: fromIP, source: 'ip' }
-
-    // 4. Default
+    // 3. Default
     return { currency: 'USD', source: 'default' }
 }
 

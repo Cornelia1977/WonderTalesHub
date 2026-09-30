@@ -1,8 +1,8 @@
-import howItWorksImage from '../../assets/howitworksimg.svg'
-import hiwBgImg from '../../assets/hiwbgimg.svg'
-import icon1 from '../../assets/cartoon-boy-with-backpack-tablet 1.png'
-import icon2 from '../../assets/image 20.png'
-import icon3 from '../../assets/image 22.png'
+import howItWorksImage from '../../assets/howitworksimg.webp'
+import hiwBgImg from '../../assets/hiwbgimg.webp'
+import icon1 from '../../assets/cartoon-boy.webp'
+import icon2 from '../../assets/image-20.webp'
+import icon3 from '../../assets/image-22.webp'
 import ScrollReveal from './ScrollReveal'
 
 export default function HowItWorks() {

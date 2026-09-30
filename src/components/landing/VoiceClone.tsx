@@ -1,4 +1,4 @@
-import handImg from '../../assets/handimg.svg'
+import handImg from '../../assets/handimg.webp'
 
 // Waveform bar default heights and animation parameters
 // Format: [height_px, animation_delay, animation_duration]

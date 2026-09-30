@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import logoIcon from '../assets/logo.svg'
+import logoIcon from '../assets/logo.png'
+import { GET_THE_APP_HREF } from '../config/links'
 
 const navItems = [
   { label: 'Features', href: '/#features' },
@@ -37,7 +38,7 @@ export default function Navbar() {
 
         <div className="flex items-center gap-4">
           <a
-            href="/blogs"
+            href={GET_THE_APP_HREF}
             className="hidden sm:block rounded-md bg-linear-to-r from-orange-300 via-orange-400 to-orange-500 px-6 py-2.5 text-[13px] font-semibold text-white transition hover:opacity-90"
           >
             Try Free Story
@@ -70,7 +71,7 @@ export default function Navbar() {
             </a>
           ))}
           <a
-            href="/blogs"
+            href={GET_THE_APP_HREF}
             className="text-base font-medium text-orange-400 block py-3"
             onClick={() => setIsMobileMenuOpen(false)}
           >

@@ -1,9 +1,10 @@
-import footerImg from '../../assets/footerimg.png'
-import storeButtons from '../../assets/google and apple playstore.svg'
+import footerImg from '../../assets/footerimg.webp'
+import StoreBadges from '../StoreBadges'
+import { APP_IS_IN_STORES, SUPPORT_EMAIL } from '../../config/links'
 
 export default function CTA() {
   return (
-    <section className="relative w-full overflow-hidden min-h-[460px] flex items-center bg-linear-to-br from-navy-950/90 via-navy-700/80 to-navy-900/90 border-t border-white/10">
+    <section id="download" className="relative w-full overflow-hidden min-h-[460px] flex items-center bg-linear-to-br from-navy-950/90 via-navy-700/80 to-navy-900/90 border-t border-white/10">
 
       {/* Background Image positioned to show the house on the right, full-bleed */}
       <img
@@ -23,14 +24,21 @@ export default function CTA() {
             Start Your Child’s Magical Journey Tonight
           </h2>
           <p className="text-sm sm:text-base text-white/70 font-normal max-w-md leading-relaxed">
-            Download the app and create unforgettable bedtime memories.
+            {APP_IS_IN_STORES
+              ? 'Download the app and create unforgettable bedtime memories.'
+              : 'Wonder Tales Hub is in family testing before its App Store and Google Play release. Want to try it tonight? Email us and we will send you an invitation.'}
           </p>
-          <div className="pt-4 flex justify-start">
-            <img
-              src={storeButtons}
-              alt="Download on App Store and Google Play"
-              className="h-10 md:h-12 object-contain hover:opacity-90 transition cursor-pointer"
-            />
+          <div className="pt-4 flex flex-col items-start gap-4">
+            {APP_IS_IN_STORES ? (
+              <StoreBadges className="h-10 md:h-12" />
+            ) : (
+              <a
+                href={`mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent('Wonder Tales Hub: invitation to test the app')}`}
+                className="rounded-md bg-gold px-6 py-3 text-sm font-semibold text-navy-950 hover:opacity-90 transition"
+              >
+                Ask for an invitation
+              </a>
+            )}
           </div>
         </div>
       </div>
