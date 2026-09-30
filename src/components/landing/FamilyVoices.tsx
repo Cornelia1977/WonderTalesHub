@@ -3,6 +3,8 @@ import luna from '../../assets/app/luna.webp'
 import atlas from '../../assets/app/atlas.webp'
 import grandma from '../../assets/app/grandma.webp'
 import grandpa from '../../assets/app/grandpa.webp'
+import willow from '../../assets/app/willow.webp'
+import sage from '../../assets/app/sage.webp'
 import ScrollReveal from './ScrollReveal'
 
 // Waveform bar default heights and animation parameters
@@ -43,6 +45,8 @@ const STEPS = [
 const STORYTELLERS = [
   { name: 'Luna', role: 'Warm mum', image: luna },
   { name: 'Atlas', role: 'Warm dad', image: atlas },
+  { name: 'Willow', role: 'Sleepy-time', image: willow },
+  { name: 'Sage', role: 'Sleepy-time', image: sage },
   { name: 'Grandma', role: 'Cosy stories', image: grandma },
   { name: 'Grandpa', role: 'Cosy stories', image: grandpa },
 ]
