@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import type { BlogPost } from '../types/blog'
+import { getApiBase } from '../config/api'
 
 interface BlogState {
   blogs: BlogPost[]
@@ -53,23 +54,6 @@ bonds. A plain-English tour of the studies behind the humble bedtime
 story — with sources.`,
   },
 ]
-
-const getApiBase = () => {
-  const hostname = typeof window !== 'undefined' ? window.location.hostname : '';
-
-  // If we are running on localhost, use the env var or default to localhost:8000
-  if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '') {
-    return import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
-  }
-
-  // If we are in production, use the production API domain
-  if (hostname.includes('wondertaleshub.com')) {
-    return 'https://api.wondertaleshub.com';
-  }
-
-  // Dynamic fallback for any other production domains
-  return `https://api.${hostname}`;
-};
 
 const API_BASE = getApiBase();
 

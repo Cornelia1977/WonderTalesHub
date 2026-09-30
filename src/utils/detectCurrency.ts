@@ -1,7 +1,5 @@
 export type Currency = 'USD' | 'EUR' | 'GBP'
 
-const STORAGE_KEY = 'preferred_currency'
-
 // Country code → currency mapping
 const COUNTRY_TO_CURRENCY: Record<string, Currency> = {
     // GBP
@@ -25,46 +23,12 @@ function getCountryFromLocale(): string | null {
     return null
 }
 
-// Instant detection from browser locale
-function detectFromLocale(): Currency | null {
-    const country = getCountryFromLocale()
-    if (!country) return null
-    return COUNTRY_TO_CURRENCY[country] ?? null
-}
-
 /**
- * Detects user currency with priority:
- * 1. localStorage (user's previous choice)
- * 2. Browser locale (instant)
- * 3. USD (default)
- *
- * There used to be an IP-geolocation step through a third-party service.
- * It sent every visitor's address to that service for a currency symbol,
- * on a site that promises parents their data stays with us; the locale is
- * right often enough and the visitor can switch with one tap.
+ * The currency of the fallback price table, used only when the App Store's
+ * own prices for the visitor's country could not be loaded
+ * (src/utils/storePrices.ts): the browser locale's, else USD.
  */
-export async function detectUserCurrency(): Promise<{
-    currency: Currency
-    source: 'storage' | 'locale' | 'default'
-}> {
-    // 1. Persisted choice
-    if (typeof window !== 'undefined') {
-        const stored = localStorage.getItem(STORAGE_KEY) as Currency | null
-        if (stored && ['USD', 'EUR', 'GBP'].includes(stored)) {
-            return { currency: stored, source: 'storage' }
-        }
-    }
-
-    // 2. Browser locale
-    const fromLocale = detectFromLocale()
-    if (fromLocale) return { currency: fromLocale, source: 'locale' }
-
-    // 3. Default
-    return { currency: 'USD', source: 'default' }
-}
-
-export function saveCurrencyPreference(currency: Currency) {
-    if (typeof window !== 'undefined') {
-        localStorage.setItem(STORAGE_KEY, currency)
-    }
+export function fallbackCurrency(): Currency {
+    const country = getCountryFromLocale()
+    return (country && COUNTRY_TO_CURRENCY[country]) || 'USD'
 }
