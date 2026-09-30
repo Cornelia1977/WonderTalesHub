@@ -1,5 +1,5 @@
-import heroImage from "../../assets/hero-image.png";
-import storeButtons from "../../assets/google and apple playstore.svg";
+import heroImage from "../../assets/hero-image.webp";
+import StoreBadges from "../StoreBadges";
 import bookIcon from "../../assets/Book.svg";
 import booksIcon from "../../assets/Books.svg";
 import aiMicIcon from "../../assets/AI Mic.svg";
@@ -39,11 +39,7 @@ export default function HeroSection() {
 
           {/* Store Buttons */}
           <div className="pt-2">
-            <img
-              src={storeButtons}
-              alt="Download on App Store and Google Play"
-              className="h-12 object-contain"
-            />
+            <StoreBadges className="h-12" />
           </div>
 
           {/* Research Banner */}
@@ -51,7 +47,7 @@ export default function HeroSection() {
             <p className="text-[15px] text-white font-normal leading-snug">
               Built on peer-reviewed research from{" "}
               <span className="text-orange-400 font-medium">3 studies</span>{" "}
-              across the University of Pennsylvania, Ohio State, and Springer Nature.
+              published in Sleep, in Sleep Medicine Reviews, and by Ohio State University.
             </p>
           </div>
         </div>

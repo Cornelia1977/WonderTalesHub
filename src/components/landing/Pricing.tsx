@@ -43,7 +43,7 @@ const PLANS = [
       '14 AI stories + 2 family voice stories / month',
       'Record up to 3 family voices',
       'Up to 4 child profiles',
-      'Offline playback',
+      'Save and replay',
       'Cancel anytime',
     ],
     bg: 'bg-[#1E67D6]',
@@ -61,9 +61,9 @@ const PLANS = [
     features: [
       '26 AI stories + 4 family voice stories = 30 total',
       'Sunday Special bonus voice story',
-      '+1 hour sleep · 1.4M more words by age 5',
       'Record up to 3 family voices',
-      'Offline playback',
+      'Up to 4 child profiles',
+      'Save and replay',
       'Cancel anytime',
     ],
     bg: 'bg-[#0d114f]/80 backdrop-blur-sm',
@@ -75,15 +75,17 @@ const PLANS = [
 ]
 
 const SINGLE_PRICES: Record<Currency, { ai: string; voice: string }> = {
-  USD: { ai: '$1.99', voice: '$4.99' },
-  EUR: { ai: '€2.49', voice: '€5.99' },
-  GBP: { ai: '£1.99', voice: '£4.99' },
+  // The App Store products: story_ai_single (1.99 USD) and
+  // story_voice_single (2.99 USD). The other currencies are Apple's tiers.
+  USD: { ai: '$1.99', voice: '$2.99' },
+  EUR: { ai: '€2.49', voice: '€3.49' },
+  GBP: { ai: '£1.99', voice: '£2.99' },
 }
 
 export default function Pricing() {
   const [currency, setCurrency] = useState<Currency>('USD')
   const [detectionSource, setDetectionSource] = useState<
-    'storage' | 'locale' | 'ip' | 'default' | null
+    'storage' | 'locale' | 'default' | null
   >(null)
 
   // Auto-detect on mount
@@ -141,11 +143,7 @@ export default function Pricing() {
                   {currency} ({CURRENCY_SYMBOLS[currency]})
                 </span>{' '}
                 based on your{' '}
-                {detectionSource === 'storage'
-                  ? 'previous selection'
-                  : detectionSource === 'locale'
-                    ? 'browser language'
-                    : 'location'}
+                {detectionSource === 'storage' ? 'previous selection' : 'browser language'}
               </p>
             )}
           </div>
