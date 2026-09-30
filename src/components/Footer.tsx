@@ -14,7 +14,6 @@ export default function Footer() {
             <img src={logoIcon} alt="Wonder Tales Hub" className="h-32 object-contain" />
           </div>
           <div className="space-y-3 text-[14px] text-white/95 font-normal text-center md:text-right pb-4">
-            <p>Contact: <a href={`mailto:${SUPPORT_EMAIL}`} className="underline hover:text-gold transition">{SUPPORT_EMAIL}</a></p>
             <p>Support: <a href={`mailto:${SUPPORT_EMAIL}`} className="underline hover:text-gold transition">{SUPPORT_EMAIL}</a></p>
             <p className="pt-2 space-x-4">
               <Link to="/privacy" className="underline hover:text-gold transition">Privacy Policy</Link>
