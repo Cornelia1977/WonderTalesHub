@@ -54,7 +54,7 @@ export default function HeroSection() {
       </div>
 
       {/* ===== FEATURES STRIP ===== */}
-      <div className="relative z-20 mx-auto w-11/12 max-w-360 md:mt-16 mt-8">
+      <div id="features" className="relative z-20 mx-auto w-11/12 max-w-360 md:mt-16 mt-8 scroll-mt-24">
         <div className="rounded-3xl border-2 border-[#FFFFFF33] backdrop-blur-[2px] bg-[#ffffff0c] p-6 md:p-8 lg:p-12 shadow-2xl overflow-hidden">
           {/* Subtle background glow effect */}
           <div className="absolute inset-0 "></div>
@@ -64,17 +64,17 @@ export default function HeroSection() {
               {
                 icon: bookIcon,
                 title: "AI Generated Stories",
-                desc: "Unique stories crafted for your child",
+                desc: "A new story every night, with your child as the hero",
               },
               {
                 icon: aiMicIcon,
                 title: "Your Voice, Their Story",
-                desc: "Clone your voice and narrate their adventure",
+                desc: "Record a loved one once; they read every story",
               },
               {
                 icon: booksIcon,
                 title: "Endless Adventure",
-                desc: "Unique stories for endless imagination",
+                desc: "Fifteen worlds, ten languages, and Next Chapter",
               },
             ].map((f, idx) => (
               <div

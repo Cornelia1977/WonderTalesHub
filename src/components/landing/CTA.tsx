@@ -34,7 +34,7 @@ export default function CTA() {
             ) : (
               <a
                 href={`mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent('Wonder Tales Hub: invitation to test the app')}`}
-                className="rounded-md bg-gold px-6 py-3 text-sm font-semibold text-navy-950 hover:opacity-90 transition"
+                className="rounded-full bg-linear-to-b from-[#E89C30] to-[#FFDBA7] px-7 py-3 text-sm font-semibold text-navy-950 shadow-[0_0_18px_rgba(232,160,32,0.35)] hover:opacity-90 transition"
               >
                 Ask for an invitation
               </a>

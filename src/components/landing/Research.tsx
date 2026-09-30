@@ -56,7 +56,7 @@ export default function Research() {
                 </p>
 
                 {/* Description */}
-                <p className="mt-6 text-sm text-white/50 font-normal leading-relaxed grow">
+                <p className="mt-6 text-sm text-white/70 font-normal leading-relaxed grow">
                   {c.desc}
                 </p>
 
