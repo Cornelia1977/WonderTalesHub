@@ -1,17 +1,8 @@
 import { useState, useEffect } from 'react'
 import checkCircle from '../../assets/check-circle.svg'
 import ScrollReveal from './ScrollReveal'
-import {
-  detectUserCurrency,
-  saveCurrencyPreference,
-  type Currency,
-} from '../../utils/detectCurrency'
-
-const CURRENCY_SYMBOLS: Record<Currency, string> = {
-  USD: '$',
-  EUR: '€',
-  GBP: '£',
-}
+import { fallbackCurrency, type Currency } from '../../utils/detectCurrency'
+import { countryName, fetchStorePrices, formatPrice } from '../../utils/storePrices'
 
 const PLANS = [
   {
@@ -77,36 +68,54 @@ const PLANS = [
 const SINGLE_PRICES: Record<Currency, { ai: string; voice: string }> = {
   // The App Store products: story_ai_single (1.99 USD) and
   // story_voice_single (2.99 USD). The other currencies are Apple's tiers.
-  USD: { ai: '$1.99', voice: '$2.99' },
-  EUR: { ai: '€2.49', voice: '€3.49' },
-  GBP: { ai: '£1.99', voice: '£2.99' },
+  USD: { ai: '1.99', voice: '2.99' },
+  EUR: { ai: '2.49', voice: '3.49' },
+  GBP: { ai: '1.99', voice: '2.99' },
+}
+
+interface ShownPrices {
+  currency: string
+  plans: Record<string, string>
+  singles: { ai: string; voice: string }
+  /** Set when these are the App Store's prices for the visitor's country. */
+  country: string | null
+}
+
+/** The table above, in the browser locale's currency. Shown until the App
+ *  Store's prices arrive, and instead of them when they cannot be loaded. */
+function fallbackPrices(): ShownPrices {
+  const currency = fallbackCurrency()
+  return {
+    currency,
+    plans: Object.fromEntries(PLANS.map((p) => [p.name, p.prices[currency]])),
+    singles: SINGLE_PRICES[currency],
+    country: null,
+  }
 }
 
 export default function Pricing() {
-  const [currency, setCurrency] = useState<Currency>('USD')
-  const [detectionSource, setDetectionSource] = useState<
-    'storage' | 'locale' | 'default' | null
-  >(null)
+  const [shown, setShown] = useState<ShownPrices>(fallbackPrices)
 
-  // Auto-detect on mount
+  // The prices set in App Store Connect for the visitor's country. Used only
+  // when Apple has a price for every plan and single story, so one currency
+  // is never mixed with another on the page.
   useEffect(() => {
     let cancelled = false
-    detectUserCurrency().then(({ currency: detected, source }) => {
-      if (!cancelled) {
-        setCurrency(detected)
-        setDetectionSource(source)
-      }
+    fetchStorePrices().then((store) => {
+      if (cancelled || !store) return
+      const complete = PLANS.every((p) => store.plans[p.name]) && store.singles.ai && store.singles.voice
+      if (!complete) return
+      setShown({
+        currency: store.currency,
+        plans: store.plans,
+        singles: { ai: store.singles.ai!, voice: store.singles.voice! },
+        country: store.country,
+      })
     })
     return () => {
       cancelled = true
     }
   }, [])
-
-  const handleCurrencyChange = (c: Currency) => {
-    setCurrency(c)
-    saveCurrencyPreference(c)
-    setDetectionSource('storage')
-  }
 
   return (
     <section id="pricing" className="px-6 py-24 lg:px-8">
@@ -120,33 +129,11 @@ export default function Pricing() {
             <span className="text-gold">Plan for You</span>
           </h2>
 
-          {/* Currency Selector */}
-          <div className="mt-8 flex flex-col items-center justify-center gap-2">
-            <div className="flex items-center gap-2">
-              {(['USD', 'EUR', 'GBP'] as Currency[]).map((c) => (
-                <button
-                  key={c}
-                  onClick={() => handleCurrencyChange(c)}
-                  className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all ${currency === c
-                    ? 'bg-gold text-navy-950'
-                    : 'border border-white/20 text-white/70 hover:text-white hover:border-white/40'
-                    }`}
-                >
-                  {c} {CURRENCY_SYMBOLS[c]}
-                </button>
-              ))}
-            </div>
-            {detectionSource && detectionSource !== 'default' && (
-              <p className="text-[10px] text-white/40 mt-1">
-                Prices shown in{' '}
-                <span className="text-white/60">
-                  {currency} ({CURRENCY_SYMBOLS[currency]})
-                </span>{' '}
-                based on your{' '}
-                {detectionSource === 'storage' ? 'previous selection' : 'browser language'}
-              </p>
-            )}
-          </div>
+          {shown.country && (
+            <p className="mt-6 text-[11px] text-white/40">
+              App Store prices for {countryName(shown.country)}
+            </p>
+          )}
         </ScrollReveal>
 
         <div className="mt-12 grid gap-6 sm:grid-cols-3 max-w-5xl mx-auto">
@@ -168,8 +155,7 @@ export default function Pricing() {
 
                 <p className="text-base font-semibold text-white">{p.name}</p>
                 <p className="mt-3 font-bold text-white text-4xl leading-none">
-                  {CURRENCY_SYMBOLS[currency]}
-                  {p.prices[currency]}
+                  {formatPrice(shown.plans[p.name], shown.currency)}
                   <span className="text-[11px] font-medium text-white/70 ml-1">
                     /mo
                   </span>
@@ -221,7 +207,7 @@ export default function Pricing() {
             <span>
               AI Story —{' '}
               <span className="text-white font-medium">
-                {SINGLE_PRICES[currency].ai}
+                {formatPrice(shown.singles.ai, shown.currency)}
               </span>{' '}
               each
             </span>
@@ -229,7 +215,7 @@ export default function Pricing() {
             <span>
               Family Voice Story —{' '}
               <span className="text-white font-medium">
-                {SINGLE_PRICES[currency].voice}
+                {formatPrice(shown.singles.voice, shown.currency)}
               </span>{' '}
               each
             </span>
