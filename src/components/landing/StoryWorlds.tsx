@@ -1,19 +1,37 @@
+import adventure from '../../assets/app/adventure.webp'
+import fantasy from '../../assets/app/fantasy.webp'
+import animals from '../../assets/app/animals.webp'
 import space from '../../assets/app/space.webp'
 import dinosaurs from '../../assets/app/dinosaurs.webp'
-import ocean from '../../assets/app/ocean.webp'
-import princess from '../../assets/app/princess.webp'
 import magic from '../../assets/app/magic.webp'
+import princess from '../../assets/app/princess.webp'
+import ocean from '../../assets/app/ocean.webp'
 import pirates from '../../assets/app/pirates.webp'
+import friendship from '../../assets/app/friendship.webp'
+import science from '../../assets/app/science.webp'
+import bedtime from '../../assets/app/bedtime.webp'
+import history from '../../assets/app/history.webp'
+import educational from '../../assets/app/educational.webp'
+import custom from '../../assets/app/custom.webp'
 import ScrollReveal from './ScrollReveal'
 
-// Six of the app's fifteen themes, with the app's own pictures.
+// The app's fifteen themes, in the app's order, with the app's own pictures.
 const THEMES = [
+  { name: 'Adventure', image: adventure },
+  { name: 'Fantasy', image: fantasy },
+  { name: 'Animals', image: animals },
   { name: 'Space', image: space },
   { name: 'Dinosaurs', image: dinosaurs },
-  { name: 'Ocean', image: ocean },
-  { name: 'Princess', image: princess },
   { name: 'Magic', image: magic },
+  { name: 'Princess', image: princess },
+  { name: 'Ocean', image: ocean },
   { name: 'Pirates', image: pirates },
+  { name: 'Friendship', image: friendship },
+  { name: 'Science', image: science },
+  { name: 'Bedtime', image: bedtime },
+  { name: 'History', image: history },
+  { name: 'Learning', image: educational },
+  { name: 'Your idea', image: custom },
 ]
 
 // The ten languages the app tells stories in, as the app names them.
@@ -33,9 +51,9 @@ export default function StoryWorlds() {
           </p>
         </ScrollReveal>
 
-        <div className="mt-14 grid grid-cols-3 sm:grid-cols-6 gap-3 sm:gap-4">
+        <div className="mt-14 grid grid-cols-3 sm:grid-cols-5 gap-3 sm:gap-4">
           {THEMES.map((t, i) => (
-            <ScrollReveal key={t.name} delay={i * 100} scale>
+            <ScrollReveal key={t.name} delay={(i % 5) * 80} scale>
               <div className="group relative overflow-hidden rounded-2xl border border-white/10 aspect-[12/13]">
                 <img src={t.image} alt="" className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
                 <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-navy-950/90 to-transparent px-2 pt-8 pb-2">
@@ -45,7 +63,6 @@ export default function StoryWorlds() {
             </ScrollReveal>
           ))}
         </div>
-        <p className="mt-4 text-xs text-white/50">…and Adventure, Fantasy, Animals, Friendship, Science, Bedtime, History, Learning, or your own idea.</p>
 
         <ScrollReveal direction="up" delay={200}>
           <div className="mt-12 flex flex-wrap justify-center gap-2">
