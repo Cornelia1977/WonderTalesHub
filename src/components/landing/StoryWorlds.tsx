@@ -31,7 +31,7 @@ const THEMES = [
   { name: 'Bedtime', image: bedtime },
   { name: 'History', image: history },
   { name: 'Learning', image: educational },
-  { name: 'Your idea', image: custom },
+  { name: 'Custom', image: custom },
 ]
 
 // The ten languages the app tells stories in, as the app names them.
