@@ -1,17 +1,23 @@
 import { useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useBlogStore } from '../cotexts/blogStore'
+import BlogCard from '../components/BlogCard'
+import StarrySky from '../components/landing/StarrySky'
+import StoreBadges from '../components/StoreBadges'
+import { categoryLabel, readingMinutes } from '../utils/blogMeta'
 
 export default function BlogDetailPage() {
   const { slug } = useParams()
-  const { activeBlog, fetchBlogBySlug, loading } = useBlogStore()
+  const { activeBlog, blogs, fetchBlogBySlug, fetchBlogs, loading } = useBlogStore()
 
   useEffect(() => {
     window.scrollTo(0, 0)
     if (slug) {
       fetchBlogBySlug(slug)
     }
-  }, [slug, fetchBlogBySlug])
+    // For "More to read" at the end.
+    if (blogs.length === 0) fetchBlogs()
+  }, [slug, fetchBlogBySlug, fetchBlogs, blogs.length])
 
   // Dynamic SEO Injection
   useEffect(() => {
@@ -67,25 +73,9 @@ export default function BlogDetailPage() {
     )
   }
 
-  // Format the title: split at the colon to style the first part gold and the second part white
-  const renderTitle = (title: string) => {
-    const colonIndex = title.indexOf(':')
-    if (colonIndex !== -1) {
-      const part1 = title.substring(0, colonIndex + 1)
-      const part2 = title.substring(colonIndex + 1)
-      return (
-        <h1 className="font-serif text-[34px] sm:text-[44px] md:text-[50px] font-bold leading-tight tracking-tight mb-8">
-          <span className="text-gold block sm:inline">{part1}</span>
-          <span className="text-white block sm:inline sm:ml-2">{part2}</span>
-        </h1>
-      )
-    }
-    return (
-      <h1 className="font-serif text-[34px] sm:text-[44px] md:text-[50px] font-bold leading-tight tracking-tight text-gold mb-8">
-        {title}
-      </h1>
-    )
-  }
+  const renderTitle = (title: string) => (
+    <h1 className="font-serif text-4xl leading-tight text-white sm:text-5xl lg:text-[56px]">{title}</h1>
+  )
 
   // Custom text content renderer to turn plain text with lists/headings into beautiful HTML structure
   const renderContent = (content: string) => {
@@ -95,7 +85,7 @@ export default function BlogDetailPage() {
     if (content.includes('<p>') || content.includes('<br>') || content.includes('<ul>')) {
       return (
         <div
-          className="prose prose-invert prose-gold max-w-none text-slate-200 leading-relaxed font-sans space-y-6 text-[16px] sm:text-[17px] [&_h2]:font-serif [&_h2]:text-gold [&_h2]:text-2xl sm:[&_h2]:text-3xl [&_h2]:font-bold [&_h2]:mt-10 [&_h2]:mb-4 [&_ul]:list-none [&_ul]:pl-0 [&_li]:flex [&_li]:items-start [&_li]:gap-3 [&_li]:my-4 [&_strong]:text-white [&_strong]:font-semibold"
+          className="prose prose-invert max-w-none space-y-6 text-[17px] leading-relaxed text-white/80 sm:text-lg [&_h2]:font-serif [&_h2]:text-gold [&_h2]:text-2xl sm:[&_h2]:text-3xl [&_h2]:font-normal [&_h2]:mt-12 [&_h2]:mb-4 [&_h3]:font-serif [&_h3]:text-white [&_h3]:text-xl [&_ul]:list-none [&_ul]:pl-0 [&_li]:flex [&_li]:items-start [&_li]:gap-3 [&_li]:my-4 [&_strong]:text-white [&_strong]:font-semibold [&_a]:text-gold"
           dangerouslySetInnerHTML={{ __html: content }}
         />
       )
@@ -104,7 +94,7 @@ export default function BlogDetailPage() {
     // Otherwise, parse plain text block-by-block
     const blocks = content.split('\n\n')
     return (
-      <div className="space-y-6 text-[16px] sm:text-[17px] text-slate-200 leading-relaxed font-sans">
+      <div className="space-y-6 text-[17px] leading-relaxed text-white/80 sm:text-lg">
         {blocks.map((block, idx) => {
           const trimmed = block.trim()
           if (!trimmed) return null
@@ -112,7 +102,7 @@ export default function BlogDetailPage() {
           // Headings like "1. Set the Stage", "2. Master Your Delivery" or "The Ultimate Benefit"
           if (/^\d+\.\s+/.test(trimmed) || trimmed === 'The Ultimate Benefit') {
             return (
-              <h2 key={idx} className="font-serif text-2xl sm:text-3xl text-gold mt-12 mb-5 font-bold tracking-wide">
+              <h2 key={idx} className="mt-12 mb-5 font-serif text-2xl text-gold sm:text-3xl">
                 {trimmed}
               </h2>
             )
@@ -133,7 +123,7 @@ export default function BlogDetailPage() {
                         <span className="text-gold text-lg leading-none mt-1.5 select-none">•</span>
                         <span>
                           <strong className="text-white font-semibold">{titleText}: </strong>
-                          <span className="text-slate-200">{descText}</span>
+                          <span className="text-white/80">{descText}</span>
                         </span>
                       </li>
                     )
@@ -141,7 +131,7 @@ export default function BlogDetailPage() {
                   return (
                     <li key={i} className="flex items-start gap-3">
                       <span className="text-gold text-lg leading-none mt-1.5 select-none">•</span>
-                      <span className="text-slate-200">{item}</span>
+                      <span className="text-white/80">{item}</span>
                     </li>
                   )
                 })}
@@ -165,40 +155,70 @@ export default function BlogDetailPage() {
     )
   }
 
-  return (
-    <div className="relative min-h-screen pt-32 pb-24 max-w-360 mx-auto w-11/12 overflow-hidden animate-fade-in-up">
-      {/* Soft background glows matching the mockup lighting */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-225 h-125 bg-blue-600/10 rounded-full blur-3xl pointer-events-none -z-10" />
-      <div className="absolute top-[20%] left-[20%] w-87.5 h-87.5 bg-indigo-600/5 rounded-full blur-3xl pointer-events-none -z-10" />
+  const others = blogs.filter((b) => b.slug !== activeBlog.slug).slice(0, 3)
 
-      <div className=" relative z-10">
+  return (
+    <div className="relative isolate overflow-hidden pt-32 pb-24 animate-fade-in-up">
+      <StarrySky />
+      <div className="mx-auto w-11/12 max-w-360">
         <Link
           to="/blogs"
-          className="inline-flex items-center gap-2 text-slate-400 hover:text-gold text-xs uppercase tracking-wider font-semibold transition-colors duration-200 mb-8 font-sans"
+          className="mb-10 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-white/60 transition-colors hover:text-gold"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-3.5 h-3.5">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-          </svg>
-          Back to Blogs
+          <span aria-hidden="true">←</span> Notes for parents
         </Link>
 
-        {renderTitle(activeBlog.title)}
+        <header className="mx-auto max-w-3xl text-center">
+          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[11px] font-semibold uppercase tracking-widest text-gold">
+            <span>{categoryLabel(activeBlog)}</span>
+            <span className="text-white/30" aria-hidden="true">·</span>
+            <span className="font-medium normal-case tracking-normal text-white/60">{readingMinutes(activeBlog)} min read</span>
+            {activeBlog.date && (
+              <>
+                <span className="text-white/30" aria-hidden="true">·</span>
+                <span className="font-medium normal-case tracking-normal text-white/60">{activeBlog.date}</span>
+              </>
+            )}
+          </div>
+          <div className="mt-5">{renderTitle(activeBlog.title)}</div>
+          {activeBlog.excerpt && !activeBlog.excerpt.endsWith('...') && (
+            <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/70">{activeBlog.excerpt}</p>
+          )}
+        </header>
 
         {activeBlog.image && (
-          <div className="mt-8 mb-10 overflow-hidden rounded-[20px] shadow-2xl border border-white/5 bg-navy-950">
-            <img
-              src={activeBlog.image}
-              alt={activeBlog.title}
-              className="w-full object-cover aspect-video"
-            />
+          <div className="mx-auto mt-12 max-w-5xl overflow-hidden rounded-3xl border border-gold/40 shadow-[0_0_40px_rgba(232,160,32,0.18)]">
+            <img src={activeBlog.image} alt="" className="aspect-[16/9] w-full object-cover" />
           </div>
         )}
 
-        <article className="mt-10">
+        <article className="mx-auto mt-14 max-w-3xl">
           {renderContent(activeBlog.content || '')}
         </article>
+
+        {/* The point of the blog: a story tonight. */}
+        <aside className="mx-auto mt-20 max-w-3xl rounded-3xl border border-gold/30 bg-white/5 p-8 text-center backdrop-blur-md sm:p-10">
+          <p className="text-xs font-semibold uppercase tracking-widest text-gold">Tonight</p>
+          <h2 className="mt-3 font-serif text-2xl text-white sm:text-3xl">Try a story where your child is the hero</h2>
+          <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-white/70 sm:text-base">
+            Pick a theme and a voice, and a new bedtime story is written and read in minutes. The first one is free.
+          </p>
+          <div className="mt-6 flex justify-center">
+            <StoreBadges className="h-11" />
+          </div>
+        </aside>
+
+        {others.length > 0 && (
+          <section className="mt-24">
+            <h2 className="font-serif text-2xl text-white sm:text-3xl">More to read</h2>
+            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {others.map((post) => (
+                <BlogCard key={post.slug} post={post} />
+              ))}
+            </div>
+          </section>
+        )}
       </div>
     </div>
   )
 }
-
