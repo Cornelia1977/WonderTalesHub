@@ -12,9 +12,12 @@ interface BlogState {
   getBlogBySlug: (slug: string) => BlogPost | undefined
 }
 
-const coverBedtime = '/images/blog1.png'
-const coverDreamWeaver = '/images/blog2.png'
-const coverNightTales = '/images/blog3.png'
+// The sample posts' covers are the app's own theme pictures until each
+// post has a cover of its own in the same painted style (see the Gemini
+// prompts in docs/BLOG_COVERS.md).
+import coverBedtime from '../assets/app/bedtime.webp'
+import coverDreamWeaver from '../assets/app/magic.webp'
+import coverNightTales from '../assets/app/educational.webp'
 
 const mockBlogs: BlogPost[] = [
   {
