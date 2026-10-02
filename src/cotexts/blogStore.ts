@@ -59,6 +59,8 @@ story — with sources.`,
 const API_BASE = getApiBase();
 
 type RawBlogPost = {
+  slug?: string
+  title?: string
   content?: string
   excerpt?: string
   tags_list?: string[]
@@ -67,10 +69,43 @@ type RawBlogPost = {
   [key: string]: unknown
 }
 
+const slugOf = (text: string) =>
+  text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+
+/** The painted cover for a post the admin has no picture for: the sample
+ *  post with the same slug or title, else the first sample's cover. */
+const sampleCover = (b: RawBlogPost): string => {
+  const slug = b.slug || ''
+  const titleSlug = slugOf(b.title || '')
+  const match = mockBlogs.find(
+    (m) => m.slug === slug || slugOf(m.title) === titleSlug || slugOf(m.title) === slug,
+  )
+  return match ? match.image || coverBedtime : coverBedtime
+}
+
+const dateOf = (b: RawBlogPost) =>
+  b.updated_at
+    ? new Date(b.updated_at).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      })
+    : 'Recently'
+
+const fromApi = (b: RawBlogPost): BlogPost => ({
+  ...(b as BlogPost),
+  excerpt: b.content ? b.content.substring(0, 120) + '...' : b.excerpt || '',
+  category: b.tags_list && b.tags_list.length > 0 ? b.tags_list[0] : 'Parenting',
+  date: dateOf(b),
+  image: b.image ? (b.image.startsWith('http') ? b.image : `${API_BASE}${b.image}`) : sampleCover(b),
+})
+
+// Empty until the backend answers, so the page shows "Turning the pages…"
+// instead of flashing the sample posts before the real ones replace them.
 export const useBlogStore = create<BlogState>((set, get) => ({
-  blogs: mockBlogs,
+  blogs: [],
   activeBlog: null,
-  loading: false,
+  loading: true,
   error: null,
 
   fetchBlogs: async () => {
@@ -79,19 +114,9 @@ export const useBlogStore = create<BlogState>((set, get) => ({
       const res = await fetch(`${API_BASE}/v1/blogs/`)
       if (!res.ok) throw new Error('Failed to fetch blogs')
       const data = await res.json()
-      if (data && data.length > 0) {
-        const mapped = data.map((b: RawBlogPost) => ({
-          ...b,
-          excerpt: b.content ? b.content.substring(0, 120) + '...' : b.excerpt || '',
-          category: b.tags_list && b.tags_list.length > 0 ? b.tags_list[0] : 'Parenting',
-          date: b.updated_at ? new Date(b.updated_at).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-          }) : 'Recently',
-          image: b.image ? (b.image.startsWith('http') ? b.image : `${API_BASE}${b.image}`) : coverBedtime,
-        }))
-        set({ blogs: mapped, loading: false })
+      const list: RawBlogPost[] = Array.isArray(data) ? data : data?.results || []
+      if (list.length > 0) {
+        set({ blogs: list.map(fromApi), loading: false })
       } else {
         set({ blogs: mockBlogs, loading: false })
       }
@@ -107,18 +132,7 @@ export const useBlogStore = create<BlogState>((set, get) => ({
     try {
       const res = await fetch(`${API_BASE}/v1/blogs/${slug}/`)
       if (!res.ok) throw new Error('Blog post not found')
-      const data = await res.json()
-      const mapped = {
-        ...data,
-        excerpt: data.content ? data.content.substring(0, 120) + '...' : data.excerpt || '',
-        category: data.tags_list && data.tags_list.length > 0 ? data.tags_list[0] : 'Parenting',
-        date: data.updated_at ? new Date(data.updated_at).toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        }) : 'Recently',
-        image: data.image ? (data.image.startsWith('http') ? data.image : `${API_BASE}${data.image}`) : coverBedtime,
-      }
+      const mapped = fromApi(await res.json())
       set({ activeBlog: mapped, loading: false })
       return mapped
     } catch (err) {
