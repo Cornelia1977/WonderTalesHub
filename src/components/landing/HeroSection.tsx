@@ -25,7 +25,7 @@ export default function HeroSection() {
           </div>
 
           <h1 className="font-serif text-5xl leading-[1.1] tracking-wide text-white sm:text-6xl lg:text-[4.5rem]">
-            EVERY NIGHT, A NEW CHAPTER.
+            EVERY NIGHT, A&nbsp;NEW CHAPTER.
             <br />
             <span className="text-transparent bg-clip-text bg-linear-to-b from-[#E89C30] to-[#FFDBA8]">
               THE SAME HERO.
