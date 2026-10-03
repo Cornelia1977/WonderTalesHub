@@ -3,6 +3,7 @@ import BlogCard from '../components/BlogCard'
 import StarrySky from '../components/landing/StarrySky'
 import ScrollReveal from '../components/landing/ScrollReveal'
 import { useBlogStore } from '../cotexts/blogStore'
+import { setSeo } from '../seo'
 
 /** Notes for parents: the newest post large, the rest as cards, on the
  *  same night sky as the rest of the site. */
@@ -11,6 +12,12 @@ export default function BlogsPage() {
 
   useEffect(() => {
     window.scrollTo(0, 0)
+    setSeo({
+      title: 'Notes for parents: bedtime, explained',
+      description:
+        'Short reads on stories, sleep and the small rituals that make the end of the day the best part of it. Written for tired parents, in plain words.',
+      path: '/blogs',
+    })
     fetchBlogs()
   }, [fetchBlogs])
 

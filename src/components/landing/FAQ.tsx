@@ -2,7 +2,7 @@ import ScrollReveal from './ScrollReveal'
 
 // The answers match the app's own FAQ screen, so parents read the same
 // thing before and after they install it.
-const QUESTIONS = [
+export const QUESTIONS = [
   {
     q: 'Is there a free story?',
     a: 'Yes. Every new account can create one story for free, with no card needed. After that, choose Classic, Premium or Every Night, or buy single stories one at a time.',

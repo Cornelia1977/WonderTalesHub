@@ -55,7 +55,7 @@ export default function StoryWorlds() {
           {THEMES.map((t, i) => (
             <ScrollReveal key={t.name} delay={(i % 5) * 80} scale>
               <div className="group relative overflow-hidden rounded-2xl border border-white/10 aspect-[12/13]">
-                <img src={t.image} alt="" className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <img src={t.image} alt={`${t.name} story world`} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
                 <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-navy-950/90 to-transparent px-2 pt-8 pb-2">
                   <p className="text-xs sm:text-sm font-semibold text-white">{t.name}</p>
                 </div>

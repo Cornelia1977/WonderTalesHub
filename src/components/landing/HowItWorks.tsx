@@ -53,7 +53,8 @@ export default function HowItWorks() {
         <ScrollReveal direction="left" duration={1200}>
           <img
             src={howItWorksImage}
-            alt=""
+            alt="The Wonder Tales Hub app on a phone, creating a story"
+            loading="lazy"
             className="w-full h-full object-contain md:object-bottom-right object-bottom"
           />
         </ScrollReveal>

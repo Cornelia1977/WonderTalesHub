@@ -1,9 +1,10 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { setSeo } from '../seo'
 
 export default function NotFoundPage() {
   useEffect(() => {
-    document.title = 'Page not found — Wonder Tales Hub'
+    setSeo({ title: 'Page not found', description: 'That page does not exist.', path: '/404', noindex: true })
   }, [])
   return (
     <section className="px-6 pt-40 pb-32 lg:px-8 text-center">
