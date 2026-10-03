@@ -10,6 +10,8 @@ export default function PrivacyPage() {
   return (
     <LegalPage
       title="Privacy Policy"
+      path="/privacy"
+      description="What Wonder Tales Hub collects, why, where it is kept and for how long, and how to have it deleted."
       updated={PRIVACY_UPDATED}
       intro={
         <p>

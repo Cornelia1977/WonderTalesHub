@@ -1,27 +1,29 @@
 import { useEffect, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
+import { setSeo } from '../seo'
 
 /** The frame for the privacy policy, the terms and the account-deletion
  *  page: a readable column, the site's colours, a dated heading. */
 export default function LegalPage({
   title,
+  path,
+  description,
   updated,
   intro,
   children,
 }: {
   title: string
+  /** The page's one address, '/privacy'; aliases point here. */
+  path: string
+  description: string
   updated?: string
   intro?: ReactNode
   children: ReactNode
 }) {
   useEffect(() => {
-    const previous = document.title
-    document.title = `${title} — Wonder Tales Hub`
+    setSeo({ title, description, path })
     window.scrollTo(0, 0)
-    return () => {
-      document.title = previous
-    }
-  }, [title])
+  }, [title, path, description])
 
   return (
     <section className="px-6 pt-36 pb-24 lg:px-8">

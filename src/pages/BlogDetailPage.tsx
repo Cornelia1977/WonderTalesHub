@@ -5,6 +5,7 @@ import BlogCard from '../components/BlogCard'
 import StarrySky from '../components/landing/StarrySky'
 import StoreBadges from '../components/StoreBadges'
 import { categoryLabel, readingMinutes } from '../utils/blogMeta'
+import { setSeo } from '../seo'
 
 export default function BlogDetailPage() {
   const { slug } = useParams()
@@ -19,35 +20,31 @@ export default function BlogDetailPage() {
     if (blogs.length === 0) fetchBlogs()
   }, [slug, fetchBlogBySlug, fetchBlogs, blogs.length])
 
-  // Dynamic SEO Injection
+  // What a search engine and a shared link see for this post.
   useEffect(() => {
-    if (activeBlog) {
-      // Set Document Title
-      document.title = activeBlog.meta_title || activeBlog.title
-
-      // Set Meta Description
-      let metaDesc = document.querySelector('meta[name="description"]')
-      if (!metaDesc) {
-        metaDesc = document.createElement('meta')
-        metaDesc.setAttribute('name', 'description')
-        document.head.appendChild(metaDesc)
-      }
-      metaDesc.setAttribute('content', activeBlog.meta_description || activeBlog.excerpt || '')
-
-      // Set Meta Keywords
-      let metaKeywords = document.querySelector('meta[name="keywords"]')
-      if (!metaKeywords) {
-        metaKeywords = document.createElement('meta')
-        metaKeywords.setAttribute('name', 'keywords')
-        document.head.appendChild(metaKeywords)
-      }
-      metaKeywords.setAttribute('content', activeBlog.meta_keywords || '')
-    }
-
-    return () => {
-      // Restore default title on unmount
-      document.title = 'Wonder Tales Hub'
-    }
+    if (!activeBlog) return
+    const description = (activeBlog.meta_description || activeBlog.excerpt || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()
+    setSeo({
+      title: activeBlog.meta_title || activeBlog.title,
+      description,
+      path: `/blog/${activeBlog.slug}`,
+      image: activeBlog.image,
+      type: 'article',
+      jsonLd: [
+        {
+          '@context': 'https://schema.org',
+          '@type': 'BlogPosting',
+          headline: activeBlog.title,
+          description,
+          image: activeBlog.image,
+          datePublished: activeBlog.created_at,
+          dateModified: activeBlog.updated_at || activeBlog.created_at,
+          author: { '@type': 'Organization', name: activeBlog.author || 'Wonder Tales Hub' },
+          publisher: { '@type': 'Organization', name: 'Wonder Tales Hub', logo: { '@type': 'ImageObject', url: 'https://www.wondertaleshub.com/icon-512.png' } },
+          mainEntityOfPage: `https://www.wondertaleshub.com/blog/${activeBlog.slug}`,
+        },
+      ],
+    })
   }, [activeBlog])
 
   if (loading) {
@@ -188,7 +185,7 @@ export default function BlogDetailPage() {
 
         {activeBlog.image && (
           <div className="mx-auto mt-12 max-w-5xl overflow-hidden rounded-3xl border border-gold/40 shadow-[0_0_40px_rgba(232,160,32,0.18)]">
-            <img src={activeBlog.image} alt="" className="aspect-[16/9] w-full object-cover" />
+            <img src={activeBlog.image} alt={activeBlog.title} className="aspect-[16/9] w-full object-cover" />
           </div>
         )}
 

@@ -8,6 +8,8 @@ export default function TermsPage() {
   return (
     <LegalPage
       title="Terms of Service"
+      path="/terms"
+      description="The terms for using the Wonder Tales Hub app and website: plans, family voices, content and your rights."
       updated={TERMS_UPDATED}
       intro={
         <p>

@@ -30,7 +30,7 @@ export default function BlogCard({ post, featured = false }: BlogCardProps) {
     return (
       <article className="group grid gap-8 rounded-3xl border border-white/10 bg-white/5 p-4 backdrop-blur-md transition-colors duration-300 hover:border-gold/40 lg:grid-cols-[1.15fr_1fr] lg:p-5">
         <Link to={href} className="block overflow-hidden rounded-2xl border border-gold/40 shadow-[0_0_30px_rgba(232,160,32,0.18)]">
-          <img src={post.image} alt="" className="aspect-[16/10] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
+          <img src={post.image} alt={post.title} className="aspect-[16/10] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
         </Link>
         <div className="flex flex-col justify-center gap-4 px-2 pb-2 lg:px-4">
           {meta}
@@ -49,7 +49,7 @@ export default function BlogCard({ post, featured = false }: BlogCardProps) {
   return (
     <article className="group flex h-full flex-col rounded-3xl border border-white/10 bg-white/5 p-3 backdrop-blur-md transition-colors duration-300 hover:border-gold/40">
       <Link to={href} className="block overflow-hidden rounded-2xl border border-gold/30 shadow-[0_0_20px_rgba(232,160,32,0.12)]">
-        <img src={post.image} alt="" loading="lazy" className="aspect-[4/3] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
+        <img src={post.image} alt={post.title} loading="lazy" className="aspect-[4/3] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
       </Link>
       <div className="flex flex-1 flex-col gap-3 px-2 pt-5 pb-3">
         {meta}

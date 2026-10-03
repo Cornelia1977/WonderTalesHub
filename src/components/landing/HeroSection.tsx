@@ -9,7 +9,9 @@ export default function HeroSection() {
     <section className="relative min-h-[90vh] flex flex-col justify-end pb-16">
       <img
         src={heroImage}
-        alt=""
+        alt="A child asleep under a painted night sky with a crescent moon"
+        fetchPriority="high"
+        loading="eager"
         className="absolute object-[75%] inset-0 w-full h-full object-cover lg:object-top z-0 pointer-events-none"
       />
 

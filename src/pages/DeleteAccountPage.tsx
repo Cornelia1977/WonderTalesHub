@@ -7,6 +7,8 @@ export default function DeleteAccountPage() {
   return (
     <LegalPage
       title="Delete your account"
+      path="/delete-account"
+      description="How to delete your Wonder Tales Hub account and everything it holds, from inside the app, in under a minute."
       intro={<p>You can delete your Wonder Tales Hub account yourself, from inside the app, in under a minute.</p>}
     >
       <Section title="In the app">

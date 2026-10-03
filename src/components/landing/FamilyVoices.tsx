@@ -102,7 +102,7 @@ export default function FamilyVoices() {
               <div className="mt-6 grid grid-cols-2 gap-4">
                 {STORYTELLERS.map((s) => (
                   <div key={s.name} className="flex items-center gap-3">
-                    <img src={s.image} alt="" className="h-14 w-14 rounded-full object-cover border-2 border-gold/50 shadow-[0_0_15px_rgba(232,160,32,0.2)]" />
+                    <img src={s.image} alt={`${s.name}, ${s.role.toLowerCase()} storyteller`} loading="lazy" className="h-14 w-14 rounded-full object-cover border-2 border-gold/50 shadow-[0_0_15px_rgba(232,160,32,0.2)]" />
                     <div>
                       <p className="text-sm font-semibold text-white">{s.name}</p>
                       <p className="text-[11px] text-white/60">{s.role}</p>
