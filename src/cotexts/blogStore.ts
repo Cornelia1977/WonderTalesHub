@@ -64,6 +64,7 @@ type RawBlogPost = {
   content?: string
   excerpt?: string
   tags_list?: string[]
+  created_at?: string
   updated_at?: string
   image?: string
   [key: string]: unknown
@@ -83,9 +84,10 @@ const sampleCover = (b: RawBlogPost): string => {
   return match ? match.image || coverBedtime : coverBedtime
 }
 
+// The day the post was published, not the day its cover was last changed.
 const dateOf = (b: RawBlogPost) =>
-  b.updated_at
-    ? new Date(b.updated_at).toLocaleDateString('en-US', {
+  b.created_at || b.updated_at
+    ? new Date((b.created_at || b.updated_at) as string).toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
