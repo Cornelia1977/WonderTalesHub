@@ -26,7 +26,7 @@ const PLANS = [
   },
   {
     name: 'Premium',
-    prices: { USD: '14.99', EUR: '16.99', GBP: '12.99' },
+    prices: { USD: '14.99', EUR: '17.99', GBP: '12.99' },
     storySummary: '16 stories / month',
     badge: 'MOST POPULAR',
     special: 'Next Chapter — Continue any story',
@@ -45,7 +45,7 @@ const PLANS = [
   },
   {
     name: 'Every Night',
-    prices: { USD: '24.99', EUR: '27.99', GBP: '21.99' },
+    prices: { USD: '24.99', EUR: '29.99', GBP: '21.99' },
     storySummary: '30 stories / month',
     badge: 'BEST VALUE',
     special: 'Next Chapter — Continue any story',
