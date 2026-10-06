@@ -1,4 +1,5 @@
 import { getApiBase } from '../config/api'
+import { getCountry } from './siteStats'
 
 /** The prices set in App Store Connect for one country, as the backend
  *  serves them (GET /v1/payments/store-prices/?country=FR). */
@@ -18,10 +19,8 @@ export interface StorePrices {
  */
 export async function fetchStorePrices(): Promise<StorePrices | null> {
   try {
-    const geo = await fetch('/api/country')
-    if (!geo.ok) return null
-    const { country } = (await geo.json()) as { country?: string }
-    if (!country || !/^[A-Z]{2}$/.test(country)) return null
+    const country = await getCountry()
+    if (!country) return null
 
     const res = await fetch(`${getApiBase()}/v1/payments/store-prices/?country=${country}`)
     if (!res.ok) return null

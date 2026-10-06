@@ -4,7 +4,7 @@ import { SUPPORT_EMAIL } from '../config/links'
 // Generated from one text shared with the app (lib/data/privacy_policy.dart
 // and docs/privacy_policy.md in the app repository). Change all three
 // together.
-export const PRIVACY_UPDATED = '4 October 2026'
+export const PRIVACY_UPDATED = '7 October 2026'
 
 export default function PrivacyPage() {
   const email = <a href={`mailto:${SUPPORT_EMAIL}`} className="underline hover:text-gold">{SUPPORT_EMAIL}</a>
@@ -39,7 +39,7 @@ export default function PrivacyPage() {
       </Section>
 
       <Section title="What we collect on this website">
-        <p>This website has no accounts, no analytics, no advertising and no cookies. To show prices in your currency, our website host tells the page which country your connection comes from; this is not stored. Fonts are loaded from Google Fonts, which receives your browser’s request for the font files. Nothing you type into the app passes through this website.</p>
+        <p>This website has no accounts, no advertising and no cookies. To know which pages are useful, we count visits ourselves, anonymously: for each page viewed we keep the page, the day, your country and the name of the site that linked to us, never your IP address or browser details, and we can tell visitors apart for one day only. If your browser asks not to be tracked (Do Not Track or Global Privacy Control), nothing is counted. These counts are deleted after 400 days. To show prices in your currency, our website host tells the page which country your connection comes from. Fonts are loaded from Google Fonts, which receives your browser’s request for the font files. Nothing you type into the app passes through this website.</p>
       </Section>
 
       <Section title="How we use it">
