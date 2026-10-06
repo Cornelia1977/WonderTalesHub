@@ -9,7 +9,7 @@ import Pricing from '../components/landing/Pricing'
 import CTA from '../components/landing/CTA'
 import StarrySky from '../components/landing/StarrySky'
 import { useEffect } from 'react'
-import { QUESTIONS } from '../components/landing/FAQ'
+import { QUESTIONS } from '../components/landing/faqQuestions'
 import { SITE_JSON_LD, faqJsonLd, setSeo } from '../seo'
 
 export default function LandingPage() {
