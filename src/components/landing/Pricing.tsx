@@ -66,11 +66,12 @@ const PLANS = [
 ]
 
 const SINGLE_PRICES: Record<Currency, { ai: string; voice: string }> = {
-  // The App Store products: story_ai_single (1.99 USD) and
-  // story_voice_single (2.99 USD). The other currencies are Apple's tiers.
-  USD: { ai: '1.99', voice: '2.99' },
-  EUR: { ai: '2.49', voice: '3.49' },
-  GBP: { ai: '1.99', voice: '2.99' },
+  // Shown only until the live App Store prices load. As set in App Store
+  // Connect on 6 Oct 2026: story_ai_single 2.99 USD / 2.99 EUR,
+  // story_voice_single 3.99 USD / 3.99 EUR. GBP assumed on the same tiers.
+  USD: { ai: '2.99', voice: '3.99' },
+  EUR: { ai: '2.99', voice: '3.99' },
+  GBP: { ai: '2.99', voice: '3.99' },
 }
 
 interface ShownPrices {
