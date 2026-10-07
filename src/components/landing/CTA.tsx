@@ -1,5 +1,6 @@
 import footerImg from '../../assets/footerimg.webp'
 import StoreBadges from '../StoreBadges'
+import WaitlistForm from './WaitlistForm'
 import { APP_IS_IN_STORES, SUPPORT_EMAIL } from '../../config/links'
 
 export default function CTA() {
@@ -26,18 +27,21 @@ export default function CTA() {
           <p className="text-sm sm:text-base text-white/70 font-normal max-w-md leading-relaxed">
             {APP_IS_IN_STORES
               ? 'Download the app and create unforgettable bedtime memories.'
-              : 'Wonder Tales Hub is in family testing before its App Store and Google Play release. Want to try it tonight? Email us and we will send you an invitation.'}
+              : 'Wonder Tales Hub is in family testing and arrives on the App Store and Google Play very soon. Leave your email and we will tell you the day it does.'}
           </p>
           <div className="pt-4 flex flex-col items-start gap-4">
             {APP_IS_IN_STORES ? (
               <StoreBadges className="h-10 md:h-12" />
             ) : (
-              <a
-                href={`mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent('Wonder Tales Hub: invitation to test the app')}`}
-                className="rounded-full bg-linear-to-b from-[#E89C30] to-[#FFDBA7] px-7 py-3 text-sm font-semibold text-navy-950 shadow-[0_0_18px_rgba(232,160,32,0.35)] hover:opacity-90 transition"
-              >
-                Ask for an invitation
-              </a>
+              <>
+                <WaitlistForm />
+                <a
+                  href={`mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent('Wonder Tales Hub: invitation to test the app')}`}
+                  className="text-xs text-white/60 underline hover:text-white"
+                >
+                  Want to try it now? Ask for a tester invitation
+                </a>
+              </>
             )}
           </div>
         </div>
