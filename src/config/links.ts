@@ -10,8 +10,11 @@ export const PLAY_STORE_URL = ''
 // than no icon.
 export const SOCIAL_LINKS = {
   twitter: '',
-  instagram: '',
-  facebook: '',
+  instagram: 'https://instagram.com/wondertales_hub',
+  // A share link until the page has a username; then facebook.com/<username>.
+  facebook: 'https://www.facebook.com/share/19SnQY9y9q/',
+  tiktok: '',
+  youtube: '',
 }
 
 export const SUPPORT_EMAIL = 'contact@wondertaleshub.com'
