@@ -1,6 +1,6 @@
 import storeButtons from '../assets/google and apple playstore.svg'
-import { GET_THE_APP_HREF, APP_IS_IN_STORES } from '../config/links'
-import { trackStoreClick } from '../utils/siteStats'
+import { GET_THE_APP_HREF, APP_IS_IN_STORES, storeHref } from '../config/links'
+import { landingUtm, trackStoreClick } from '../utils/siteStats'
 
 /** The App Store and Google Play badges. Until the app is in the stores
  *  they say so, and lead to the download section, which says how to get
@@ -12,7 +12,7 @@ export default function StoreBadges({ className = 'h-12' }: { className?: string
         <span className="text-[11px] font-semibold uppercase tracking-widest text-gold">Coming soon to</span>
       )}
       <a
-        href={GET_THE_APP_HREF}
+        href={APP_IS_IN_STORES ? storeHref(GET_THE_APP_HREF, landingUtm()) : GET_THE_APP_HREF}
         onClick={trackStoreClick}
         target={APP_IS_IN_STORES ? '_blank' : undefined}
         rel={APP_IS_IN_STORES ? 'noreferrer' : undefined}

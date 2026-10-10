@@ -32,13 +32,51 @@ function optedOut(): boolean {
 
 let firstView = true
 
+const LANDING_KEY = 'landing'
+
+/** The page the visitor arrived on and the site that sent them, kept for
+ *  the visit (sessionStorage, gone when the tab closes): a store click
+ *  later in the visit is credited to that source too, and the Google Play
+ *  badge passes its utm tags on to the app (config/links.ts storeHref). */
+export function landing(): { url: string; referrer: string } {
+  try {
+    const kept = sessionStorage.getItem(LANDING_KEY)
+    if (kept) return JSON.parse(kept)
+  } catch {
+    // Private windows may refuse storage; the current page is then the landing.
+  }
+  const here = { url: window.location.href, referrer: document.referrer }
+  try {
+    sessionStorage.setItem(LANDING_KEY, JSON.stringify(here))
+  } catch {
+    // Same: nothing kept, nothing lost but a later click's source.
+  }
+  return here
+}
+
+/** The utm_* tags the visitor arrived with, from the landing page's address. */
+export function landingUtm(): Record<string, string> {
+  const tags: Record<string, string> = {}
+  try {
+    new URL(landing().url).searchParams.forEach((value, key) => {
+      if (/^utm_[a-z]+$/.test(key) && value) tags[key] = value.slice(0, 100)
+    })
+  } catch {
+    // An address that does not parse carries no tags.
+  }
+  return tags
+}
+
 async function send(kind: 'view' | 'store_click', path: string) {
   if (typeof window === 'undefined' || optedOut()) return
   const body: Record<string, string> = { kind, path, country: await getCountry() }
-  if (kind === 'view' && firstView) {
-    // Where the visitor came from, once: the server keeps the site name only.
-    body.referrer = document.referrer
-    body.url = window.location.href
+  if ((kind === 'view' && firstView) || kind === 'store_click') {
+    // Where the visitor came from: the server keeps the site name (or the
+    // utm_source) only. Once per visit for views; on every store click, so
+    // the click is credited to the source that brought the visitor.
+    const from = landing()
+    body.referrer = from.referrer
+    body.url = from.url
     firstView = false
   }
   const url = `${getApiBase()}/v1/site/event/`

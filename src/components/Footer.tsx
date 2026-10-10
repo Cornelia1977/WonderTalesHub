@@ -2,6 +2,8 @@ import logoIcon from '../assets/logo.png'
 import fbIcon from '../assets/Facebook.svg'
 import igIcon from '../assets/Instagram.svg'
 import twIcon from '../assets/Twitter.svg'
+import ttIcon from '../assets/TikTok.svg'
+import ytIcon from '../assets/YouTube.svg'
 import { Link } from 'react-router-dom'
 import { SOCIAL_LINKS, SUPPORT_EMAIL } from '../config/links'
 
@@ -44,6 +46,16 @@ export default function Footer() {
             {SOCIAL_LINKS.facebook && (
               <a href={SOCIAL_LINKS.facebook} target="_blank" rel="noreferrer" className="transition hover:opacity-80">
                 <img src={fbIcon} alt="Facebook" className="h-8 w-8" />
+              </a>
+            )}
+            {SOCIAL_LINKS.tiktok && (
+              <a href={SOCIAL_LINKS.tiktok} target="_blank" rel="noreferrer" className="transition hover:opacity-80">
+                <img src={ttIcon} alt="TikTok" className="h-8 w-8" />
+              </a>
+            )}
+            {SOCIAL_LINKS.youtube && (
+              <a href={SOCIAL_LINKS.youtube} target="_blank" rel="noreferrer" className="transition hover:opacity-80">
+                <img src={ytIcon} alt="YouTube" className="h-8 w-8" />
               </a>
             )}
           </div>

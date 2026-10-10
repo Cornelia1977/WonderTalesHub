@@ -1,3 +1,5 @@
+import { SOCIAL_LINKS } from './config/links'
+
 /** What a search engine or a shared link sees for the page on screen.
  *
  *  The site is one HTML file for every address, so without this every page
@@ -85,6 +87,8 @@ export const SITE_JSON_LD = [
     url: SITE,
     logo: `${SITE}/icon-512.png`,
     email: 'contact@wondertaleshub.com',
+    // The social profiles, so search engines tie them to the site.
+    sameAs: Object.values(SOCIAL_LINKS).filter(Boolean),
   },
   {
     '@context': 'https://schema.org',
