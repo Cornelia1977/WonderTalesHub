@@ -12,7 +12,7 @@ const PLANS = [
     badge: null as string | null,
     special: 'Next Chapter — Continue any story' as string | null,
     features: [
-      '8 AI-narrated stories / month',
+      '8 stories / month by our storytellers',
       'Up to 4 child profiles',
       'All story themes, 3 or 5 minutes',
       'Save and replay',
@@ -31,7 +31,7 @@ const PLANS = [
     badge: 'MOST POPULAR',
     special: 'Next Chapter — Continue any story',
     features: [
-      '14 AI stories + 2 family voice stories / month',
+      '16 stories / month, storytellers or family voices',
       'Record up to 3 family voices',
       'Up to 4 child profiles',
       'Save and replay',
@@ -50,7 +50,7 @@ const PLANS = [
     badge: 'BEST VALUE',
     special: 'Next Chapter — Continue any story',
     features: [
-      '26 AI stories + 4 family voice stories = 30 total',
+      '30 stories / month, storytellers or family voices',
       'Sunday Special bonus voice story',
       'Record up to 3 family voices',
       'Up to 4 child profiles',
