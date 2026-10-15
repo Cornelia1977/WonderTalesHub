@@ -10,11 +10,11 @@ const PLANS = [
     prices: { USD: '7.99', EUR: '8.99', GBP: '6.99' },
     storySummary: '8 AI stories / month',
     badge: null as string | null,
-    special: null as string | null,
+    special: 'Next Chapter — Continue any story' as string | null,
     features: [
       '8 AI-narrated stories / month',
       'Up to 4 child profiles',
-      'All story themes and durations',
+      'All story themes, 3 or 5 minutes',
       'Save and replay',
       'Cancel anytime',
     ],
