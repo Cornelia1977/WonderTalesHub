@@ -47,7 +47,7 @@ export default function StoryWorlds() {
             Fifteen worlds, <span className="text-gold">ten languages</span>
           </h2>
           <p className="mx-auto mt-6 max-w-xl text-base text-white/70 font-normal leading-relaxed">
-            Pick a theme, a length of 3, 5 or 10 minutes, and the language you speak at home. Your child is the hero in every one, and the words light up as they are read.
+            Pick a theme, a length of 3 or 5 minutes, and the language you speak at home. For a longer evening, continue with the next chapter. Your child is the hero in every one, and the words light up as they are read.
           </p>
         </ScrollReveal>
 
