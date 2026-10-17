@@ -4,10 +4,13 @@ import ScrollReveal from './ScrollReveal'
 import { fallbackCurrency, type Currency } from '../../utils/detectCurrency'
 import { countryName, fetchStorePrices, formatPrice } from '../../utils/storePrices'
 
+// Fallback prices, shown only until the live App Store prices load: as set
+// in App Store Connect on 17 Oct 2026 (base 9.99 / 17.99 / 29.99 USD, the
+// euro and pound figures as Apple derived them).
 const PLANS = [
   {
     name: 'Classic',
-    prices: { USD: '7.99', EUR: '8.99', GBP: '6.99' },
+    prices: { USD: '9.99', EUR: '9.99', GBP: '9.99' },
     storySummary: '8 AI stories / month',
     badge: null as string | null,
     special: 'Next Chapter — Continue any story' as string | null,
@@ -26,7 +29,7 @@ const PLANS = [
   },
   {
     name: 'Premium',
-    prices: { USD: '14.99', EUR: '17.99', GBP: '12.99' },
+    prices: { USD: '17.99', EUR: '19.99', GBP: '17.99' },
     storySummary: '16 stories / month',
     badge: 'MOST POPULAR',
     special: 'Next Chapter — Continue any story',
@@ -45,7 +48,7 @@ const PLANS = [
   },
   {
     name: 'Every Night',
-    prices: { USD: '24.99', EUR: '29.99', GBP: '21.99' },
+    prices: { USD: '29.99', EUR: '34.99', GBP: '29.99' },
     storySummary: '30 stories / month',
     badge: 'BEST VALUE',
     special: 'Next Chapter — Continue any story',

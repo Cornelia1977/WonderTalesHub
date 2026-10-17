@@ -98,7 +98,7 @@ export const SITE_JSON_LD = [
     applicationCategory: 'EntertainmentApplication',
     description:
       'Personalized bedtime stories where your child is the hero, written for their age and narrated by a storyteller or in a family voice, in ten languages.',
-    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD', description: 'One free story, then plans from 7.99 a month.' },
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD', description: 'One free story, then plans from 9.99 a month.' },
     url: SITE,
   },
 ]
